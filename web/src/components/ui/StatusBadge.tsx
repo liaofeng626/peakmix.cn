@@ -6,6 +6,23 @@ export function StatusBadge({ status }: { status: string }) {
     string,
     { label: string; cls: string; hint?: string }
   > = {
+    // 会员状态（用于会员中心）
+    active: {
+      label: "有效",
+      cls: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+      hint: "当前套餐可正常使用",
+    },
+    expired: {
+      label: "已过期",
+      cls: "bg-amber-50 text-amber-700 ring-amber-200",
+      hint: "套餐已到期，可升级续费（第一版为占位）",
+    },
+    inactive: {
+      label: "未开通",
+      cls: "bg-stone-100 text-stone-700 ring-stone-200",
+      hint: "当前为免费使用状态",
+    },
+
     draft: {
       label: "未上传",
       cls: "bg-stone-100 text-stone-700 ring-stone-200",
