@@ -19,6 +19,13 @@ export type UserPublicRow = RowDataPacket & {
   display_name: string | null;
 };
 
+export type UserMeRow = RowDataPacket & {
+  id: number;
+  email: string;
+  display_name: string | null;
+  created_at: Date;
+};
+
 export type MembershipRow = RowDataPacket & {
   plan_code: string;
   status: string;
