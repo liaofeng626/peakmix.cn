@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const nav = [
   { href: "/features", label: "功能" },
-  { href: "/pricing", label: "价格" },
   { href: "/guide", label: "教程" },
+  { href: "/pricing", label: "价格" },
 ];
 
 /**

@@ -28,14 +28,14 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setErr(data.message || "登录失败");
+        setErr(data.message || "邮箱或密码不正确，请检查后再试");
         return;
       }
       setToken(data.token);
       router.push("/dashboard");
       router.refresh();
     } catch {
-      setErr("网络错误，请稍后重试");
+      setErr("网络有点问题，请稍后再试");
     } finally {
       setLoading(false);
     }
@@ -44,6 +44,9 @@ export default function LoginPage() {
   return (
     <div className="mx-auto max-w-md px-4 py-20 sm:px-6">
       <h1 className="text-2xl font-semibold text-stone-900">登录</h1>
+      <p className="mt-2 text-sm text-stone-600">
+        登录后可进入任务后台，继续上传、处理与下载你的成品文件。
+      </p>
       <p className="mt-2 text-sm text-stone-600">
         还没有账号？{" "}
         <Link href="/register" className="font-medium text-stone-900 underline">
