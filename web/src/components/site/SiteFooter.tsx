@@ -11,10 +11,10 @@ export function SiteFooter() {
           <div className="lg:col-span-2">
             <p className="text-sm font-semibold text-stone-900">PeakMix</p>
             <p className="mt-2 max-w-md text-sm leading-relaxed text-stone-600">
-              面向舞蹈活动场景的音频拼接工具：上传自有 MP3 → 随机排序 → 拼接导出 → 下载成品 MP3 与 Excel 顺序表。
+              面向舞蹈活动场景的自有音频处理工具：上传自有 MP3 → 随机排序 → 拼接导出 → 下载成品 MP3 与 Excel 顺序表。
             </p>
             <p className="mt-3 text-xs text-stone-500">
-              边界：不提供公共曲库，不提供在线播放，不做用户间分享。仅支持上传你有权使用的自有音频。
+              边界：仅支持上传你有权使用的自有 MP3；不提供公共曲库；不提供在线播放；不提供用户间分享。
             </p>
             <p className="mt-3 text-xs text-stone-500">当前为内测版本，体验与细节会持续优化。</p>
           </div>
@@ -27,10 +27,10 @@ export function SiteFooter() {
               首页
             </Link>
             <Link href="/features" className="hover:text-stone-900">
-              功能介绍
+              功能说明
             </Link>
             <Link href="/guide" className="hover:text-stone-900">
-              使用教程
+              上手指南
             </Link>
             <Link href="/pricing" className="hover:text-stone-900">
               价格

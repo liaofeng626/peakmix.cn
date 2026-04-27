@@ -4,9 +4,9 @@
 export default function GuidePage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <h1 className="text-3xl font-semibold tracking-tight text-stone-900">使用教程</h1>
+      <h1 className="text-3xl font-semibold tracking-tight text-stone-900">上手指南</h1>
       <p className="mt-4 text-stone-600">
-        第一次使用也没关系。照着下面做，你可以在几分钟内完成一次“上传 → 随机排序 → 拼接导出 → 下载”的完整流程。
+        第一次使用也没关系。照着下面做，你可以在几分钟内完成一次“上传 → 随机排序 → 拼接导出 → 下载”的完整流程（当前为内测版本）。
       </p>
 
       <ol className="mt-10 space-y-6 text-sm text-stone-600">
@@ -14,6 +14,19 @@ export default function GuidePage() {
           <div className="flex gap-3">
             <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-stone-900 text-xs font-medium text-white">
               1
+            </span>
+            <div>
+              <p className="font-medium text-stone-900">准备你的自有 MP3（先确认边界）</p>
+              <p className="mt-1 leading-relaxed">
+                PeakMix 只处理你有权使用的自有 MP3：不提供公共曲库，不提供在线播放，也不提供用户间分享。建议先把要用的音频文件放在同一文件夹，文件名尽量清晰。
+              </p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div className="flex gap-3">
+            <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-stone-900 text-xs font-medium text-white">
+              2
             </span>
             <div>
               <p className="font-medium text-stone-900">注册 / 登录</p>
@@ -26,7 +39,7 @@ export default function GuidePage() {
         <li>
           <div className="flex gap-3">
             <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-stone-900 text-xs font-medium text-white">
-              2
+              3
             </span>
             <div>
               <p className="font-medium text-stone-900">创建任务</p>
@@ -39,7 +52,7 @@ export default function GuidePage() {
         <li>
           <div className="flex gap-3">
             <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-stone-900 text-xs font-medium text-white">
-              3
+              4
             </span>
             <div>
               <p className="font-medium text-stone-900">上传多个 MP3</p>
@@ -52,7 +65,7 @@ export default function GuidePage() {
         <li>
           <div className="flex gap-3">
             <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-stone-900 text-xs font-medium text-white">
-              4
+              5
             </span>
             <div>
               <p className="font-medium text-stone-900">点击处理：随机排序 → 拼接导出</p>
@@ -65,12 +78,12 @@ export default function GuidePage() {
         <li>
           <div className="flex gap-3">
             <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-stone-900 text-xs font-medium text-white">
-              5
+              6
             </span>
             <div>
               <p className="font-medium text-stone-900">下载成品 MP3 与 Excel 顺序表</p>
               <p className="mt-1 leading-relaxed">
-                状态变为“已完成”后，下载两个文件：成品 MP3 与 Excel 顺序表（包含顺序号与原始文件名）。
+                状态变为“已完成”后，下载两个文件：成品 MP3 与 Excel 顺序表（包含顺序号与原始文件名）。PeakMix 不提供在线播放/试听，下载后请在你自己的播放器/设备中使用。
               </p>
             </div>
           </div>
@@ -78,13 +91,13 @@ export default function GuidePage() {
       </ol>
 
       <div className="mt-12 rounded-2xl border border-stone-200 bg-stone-50 p-6">
-        <h2 className="text-sm font-medium text-stone-900">常见提醒</h2>
+        <h2 className="text-sm font-medium text-stone-900">第一次来建议你这样做</h2>
         <ul className="mt-3 space-y-2 text-sm text-stone-600">
           {[
-            "文件名尽量清晰：顺序表会直接展示原始文件名。",
-            "仅上传你有权使用的自有 MP3：PeakMix 不提供公共曲库。",
-            "不提供在线播放/试听：处理结果请以下载文件为准。",
-            "当前为内测版本：我们会持续优化体验与细节。",
+            "先准备一个文件夹，把要用的 MP3 放进去，并把文件名改到你一眼能认出来（顺序表会直接展示原始文件名）。",
+            "先用 5–10 个文件跑通一次流程：创建任务 → 上传 → 处理 → 下载两个文件。",
+            "拿到 Excel 顺序表后先快速扫一遍：确认顺序号与文件名对得上，再把成品 MP3 拷贝到现场设备。",
+            "当前为内测版本：如果你遇到卡住/失败，最有用的是记录任务名、时间、上传文件数量与报错提示。",
           ].map((t) => (
             <li key={t} className="flex gap-2">
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-stone-900" />
@@ -113,6 +126,10 @@ export default function GuidePage() {
             {
               q: "为什么当前是内测版？",
               a: "我们希望先把核心流程打磨稳定，再逐步完善细节与扩展能力（例如更高配额、更多导出选项等）。",
+            },
+            {
+              q: "我能在线听一下处理后的结果吗？",
+              a: "不能。PeakMix 不提供在线播放/试听。处理完成后请下载成品 MP3，并在你自己的设备里播放确认。",
             },
           ].map((x) => (
             <div key={x.q}>
