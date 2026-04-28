@@ -8,7 +8,7 @@ import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 import { InlineNotice } from "@/components/ui/InlineNotice";
 
 /**
- * 新建任务：填写「本次音频名称」后进入详情页上传文件
+ * 新建任务：填写「本次音频名称」后进入详情页上传文�?
  */
 export default function NewTaskPage() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function NewTaskPage() {
     setErr(null);
     setLoading(true);
     try {
-      const res = await apiFetch("/api/v1/tasks", {
+      const res = await apiFetch("/tasks", {
         method: "POST",
         body: JSON.stringify({ audioTitle }),
       });
@@ -43,7 +43,7 @@ export default function NewTaskPage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">新建任务</h1>
         <p className="mt-2 text-sm text-stone-600">
-          你只需要先给“最终成品”起个名字。创建后进入任务详情页上传多个 MP3，并一键随机排序、拼接与导出。
+          你只需要先给“最终成品”起个名字。创建后进入任务详情页上传多�?MP3，并一键随机排序、拼接与导出�?
         </p>
       </div>
 
@@ -51,7 +51,7 @@ export default function NewTaskPage() {
         <div className="space-y-1">
           <p className="font-medium">合规边界</p>
           <p className="text-sm text-sky-900/80">
-            PeakMix 不提供公共曲库、在线播放或用户间分享功能。请仅上传你拥有使用权的自有音频。
+            PeakMix 不提供公共曲库、在线播放或用户间分享功能。请仅上传你拥有使用权的自有音频�?
           </p>
         </div>
       </InlineNotice>
@@ -61,7 +61,7 @@ export default function NewTaskPage() {
           <CardHeader className="pb-3">
             <h2 className="text-sm font-medium text-stone-900">任务信息</h2>
             <p className="mt-1 text-xs text-stone-500">
-              这个名称会写入 Excel 顺序表，也会作为下载文件的默认命名参考。
+              这个名称会写�?Excel 顺序表，也会作为下载文件的默认命名参考�?
             </p>
           </CardHeader>
           <CardBody>
@@ -87,7 +87,7 @@ export default function NewTaskPage() {
 
               <div className="flex flex-wrap items-center gap-3">
                 <Button type="submit" disabled={loading}>
-                  {loading ? "创建中…" : "创建并进入上传"}
+                  {loading ? "创建中�? : "创建并进入上�?}
                 </Button>
                 <Button
                   type="button"
@@ -105,7 +105,7 @@ export default function NewTaskPage() {
         <Card>
           <CardHeader className="pb-3">
             <h2 className="text-sm font-medium text-stone-900">处理步骤</h2>
-            <p className="mt-1 text-xs text-stone-500">清晰告诉用户接下来会发生什么。</p>
+            <p className="mt-1 text-xs text-stone-500">清晰告诉用户接下来会发生什么�?/p>
           </CardHeader>
           <CardBody>
             <ol className="space-y-3 text-sm text-stone-700">
@@ -115,7 +115,7 @@ export default function NewTaskPage() {
                 </span>
                 <div>
                   <p className="font-medium text-stone-900">上传多个 MP3</p>
-                  <p className="mt-0.5 text-xs text-stone-500">仅用于本次任务处理与下载。</p>
+                  <p className="mt-0.5 text-xs text-stone-500">仅用于本次任务处理与下载�?/p>
                 </div>
               </li>
               <li className="flex gap-3">
@@ -125,7 +125,7 @@ export default function NewTaskPage() {
                 <div>
                   <p className="font-medium text-stone-900">随机排序</p>
                   <p className="mt-0.5 text-xs text-stone-500">
-                    系统会生成一个随机顺序并写入 Excel。
+                    系统会生成一个随机顺序并写入 Excel�?
                   </p>
                 </div>
               </li>
@@ -136,7 +136,7 @@ export default function NewTaskPage() {
                 <div>
                   <p className="font-medium text-stone-900">ffmpeg 拼接导出</p>
                   <p className="mt-0.5 text-xs text-stone-500">
-                    输出成品 MP3 + Excel 顺序表（不提供在线播放）。
+                    输出成品 MP3 + Excel 顺序表（不提供在线播放）�?
                   </p>
                 </div>
               </li>

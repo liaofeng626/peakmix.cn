@@ -20,7 +20,7 @@ export default function TasksListPage() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const res = await apiFetch("/api/v1/tasks");
+      const res = await apiFetch("/tasks");
       const data = await res.json();
       if (!cancelled && res.ok) setTasks(data.tasks);
     })();
@@ -40,9 +40,9 @@ export default function TasksListPage() {
           新建
         </Link>
       </div>
-      {!tasks && <p className="mt-6 text-sm text-stone-500">加载中…</p>}
+      {!tasks && <p className="mt-6 text-sm text-stone-500">加载中�?/p>}
       {tasks && tasks.length === 0 && (
-        <p className="mt-6 text-sm text-stone-600">暂无任务，去创建一个吧。</p>
+        <p className="mt-6 text-sm text-stone-600">暂无任务，去创建一个吧�?/p>
       )}
       {tasks && tasks.length > 0 && (
         <ul className="mt-6 space-y-3">
