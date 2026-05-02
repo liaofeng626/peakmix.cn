@@ -11,9 +11,7 @@ type TaskRow = {
   created_at: string;
 };
 
-/**
- * 任务列表
- */
+/** Task list */
 export default function TasksListPage() {
   const [tasks, setTasks] = useState<TaskRow[] | null>(null);
 
@@ -32,17 +30,21 @@ export default function TasksListPage() {
   return (
     <div>
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl font-semibold">任务列表</h1>
+        <h1 className="text-2xl font-semibold">{"\u4efb\u52a1\u5217\u8868"}</h1>
         <Link
           href="/dashboard/tasks/new"
           className="rounded-full bg-stone-900 px-4 py-2 text-sm font-medium text-white"
         >
-          新建
+          {"\u65b0\u5efa"}
         </Link>
       </div>
-      {!tasks && <p className="mt-6 text-sm text-stone-500">加载中�?/p>}
+      {!tasks && (
+        <p className="mt-6 text-sm text-stone-500">{"\u52a0\u8f7d\u4e2d..."}</p>
+      )}
       {tasks && tasks.length === 0 && (
-        <p className="mt-6 text-sm text-stone-600">暂无任务，去创建一个吧�?/p>
+        <p className="mt-6 text-sm text-stone-600">
+          {"\u6682\u65e0\u4efb\u52a1\uff0c\u53bb\u521b\u5efa\u4e00\u4e2a\u5427\u3002"}
+        </p>
       )}
       {tasks && tasks.length > 0 && (
         <ul className="mt-6 space-y-3">

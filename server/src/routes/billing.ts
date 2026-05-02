@@ -3,6 +3,10 @@ import { pool } from "../db";
 import { authRequired } from "../middleware/auth";
 import type { AuthedRequest } from "../types";
 import type { MembershipListRow, MembershipRow, PaymentRow } from "../mysqlRows";
+import {
+  countTasksProcessingStartedToday,
+  resolveDailyProcessLimit,
+} from "../services/dailyQuota";
 
 const router = Router();
 
@@ -76,10 +80,19 @@ router.get("/overview", authRequired, async (req: AuthedRequest, res) => {
     createdAt: p.created_at.toISOString(),
   }));
 
+  const { dailyLimit } = await resolveDailyProcessLimit(uid);
+  const usedToday = await countTasksProcessingStartedToday(uid);
+  const remainingToday = Math.max(0, dailyLimit - usedToday);
+
   return res.json({
     plan,
     status,
     expiresAt,
+    quota: {
+      usedToday,
+      dailyLimit,
+      remainingToday,
+    },
     orders,
   });
 });

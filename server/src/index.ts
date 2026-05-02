@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth";
 import taskRoutes from "./routes/tasks";
 import billingRoutes from "./routes/billing";
 import userRoutes from "./routes/users";
+import feedbackRoutes from "./routes/feedback";
 
 /**
  * PeakMix API 入口
@@ -46,6 +47,7 @@ async function bootstrap() {
   app.use("/api/v1/tasks", taskRoutes);
   app.use("/api/v1/billing", billingRoutes);
   app.use("/api/v1/users", userRoutes);
+  app.use("/api/v1/feedback", feedbackRoutes);
 
   // 404 统一返回 JSON，别返回 HTML
   app.use((_req, res) => {

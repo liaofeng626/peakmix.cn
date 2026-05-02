@@ -13,6 +13,7 @@ USE peakmix;
 -- ----------------------------
 -- 1. 用户表 users
 -- ----------------------------
+DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS payments;
 DROP TABLE IF EXISTS task_files;
 DROP TABLE IF EXISTS tasks;
@@ -55,6 +56,7 @@ CREATE TABLE tasks (
   user_id BIGINT UNSIGNED NOT NULL,
   audio_title VARCHAR(255) NOT NULL COMMENT '本次音频名称（业务展示名）',
   status ENUM('draft','uploaded','processing','done','failed') NOT NULL DEFAULT 'draft' COMMENT '任务状态',
+  processing_started_at DATETIME DEFAULT NULL COMMENT '首次进入处理流程时间（每日额度按服务器本地日期统计）',
   output_mp3_path VARCHAR(512) DEFAULT NULL COMMENT '拼接后 mp3 相对/绝对路径（由服务端约定）',
   output_xlsx_path VARCHAR(512) DEFAULT NULL COMMENT '顺序表 xlsx 路径',
   error_message TEXT COMMENT '失败原因',
@@ -81,7 +83,22 @@ CREATE TABLE task_files (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='任务关联的上传文件';
 
 -- ----------------------------
--- 5. 支付记录表 payments（预留，第一版可仅占位）
+-- 5. 站内反馈表 feedbacks（内测）
+-- ----------------------------
+CREATE TABLE feedbacks (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED NOT NULL,
+  type VARCHAR(32) NOT NULL COMMENT 'usage / process_failed / download / feature_suggestion / other',
+  content TEXT NOT NULL COMMENT '问题描述',
+  contact VARCHAR(255) DEFAULT NULL COMMENT '选填联系方式',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_feedbacks_user (user_id),
+  CONSTRAINT fk_feedbacks_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户反馈';
+
+-- ----------------------------
+-- 6. 支付记录表 payments（预留，第一版可仅占位）
 -- ----------------------------
 CREATE TABLE payments (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,

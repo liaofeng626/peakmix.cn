@@ -9,6 +9,7 @@ const links = [
   { href: "/dashboard/tasks/new", label: "新建任务" },
   { href: "/dashboard/tasks", label: "任务列表" },
   { href: "/dashboard/billing", label: "会员中心" },
+  { href: "/dashboard/feedback", label: "反馈问题" },
   { href: "/dashboard/settings", label: "账号设置" },
 ];
 

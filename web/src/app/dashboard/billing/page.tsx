@@ -16,6 +16,11 @@ export default function BillingPage() {
     plan: "free" | "pro";
     status: "active" | "expired" | "inactive";
     expiresAt: string | null;
+    quota?: {
+      usedToday: number;
+      dailyLimit: number;
+      remainingToday: number;
+    };
     orders: Array<{
       id: number;
       amountCents: number;
@@ -137,6 +142,30 @@ export default function BillingPage() {
                 </div>
               </div>
 
+              <div className="mt-5 rounded-2xl border border-stone-200 bg-white p-4">
+                <p className="text-sm font-medium text-stone-900">今日处理额度</p>
+                {data.quota ? (
+                  <>
+                    <p className="mt-2 text-sm text-stone-700">
+                      今日已用：{data.quota.usedToday}/{data.quota.dailyLimit}
+                    </p>
+                    <p className="mt-1 text-sm text-stone-700">
+                      今日剩余：{data.quota.remainingToday} 次
+                    </p>
+                  </>
+                ) : (
+                  <p className="mt-2 text-sm text-stone-600">
+                    暂无法读取额度信息，请刷新页面；若仍如此，请确认服务端已更新至内测版。
+                  </p>
+                )}
+                <p className="mt-3 text-xs leading-relaxed text-stone-500">
+                  当前为内测版，免费用户每天可免费处理 1 个任务。会员版额度暂为占位，后续会开放更多处理次数。
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-stone-500">
+                  如果你需要更高额度，可以先通过反馈入口告诉我们使用场景。
+                </p>
+              </div>
+
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <Button
                   type="button"
@@ -173,7 +202,7 @@ export default function BillingPage() {
                       <li>创建任务与上传 MP3</li>
                       <li>随机排序 + 拼接导出</li>
                       <li>下载成品 MP3 与 Excel</li>
-                      <li className="text-stone-500">（未来可加：每日次数限制）</li>
+                      <li>内测每日处理次数（见上方额度）</li>
                     </ul>
                   </div>
                   <div className="rounded-2xl border border-stone-200 bg-stone-900 p-4 text-white">

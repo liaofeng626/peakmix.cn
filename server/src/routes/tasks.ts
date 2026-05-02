@@ -9,6 +9,11 @@ import { authRequired } from "../middleware/auth";
 import type { AuthedRequest } from "../types";
 import { ensureTaskDirs } from "../utils/paths";
 import { processTaskFiles } from "../services/taskProcessor";
+import {
+  countOtherTasksProcessingStartedToday,
+  countTasksProcessingStartedToday,
+  resolveDailyProcessLimit,
+} from "../services/dailyQuota";
 import type {
   TaskDetailRow,
   TaskFileRow,
@@ -174,7 +179,8 @@ router.post("/:id/process", authRequired, async (req: AuthedRequest, res) => {
   if (!Number.isFinite(taskId)) return res.status(400).json({ message: "无效 ID" });
 
   const [tasks] = await pool.query<TaskProcessRow[]>(
-    "SELECT id, audio_title, status FROM tasks WHERE id = :tid AND user_id = :uid LIMIT 1",
+    `SELECT id, audio_title, status, processing_started_at FROM tasks
+     WHERE id = :tid AND user_id = :uid LIMIT 1`,
     {
       tid: taskId,
       uid,
@@ -197,8 +203,29 @@ router.post("/:id/process", authRequired, async (req: AuthedRequest, res) => {
     return res.status(400).json({ message: "请先上传音频文件" });
   }
 
+  const { plan, dailyLimit } = await resolveDailyProcessLimit(uid);
+  const othersStartedToday = await countOtherTasksProcessingStartedToday(uid, taskId);
+  if (task.processing_started_at == null && othersStartedToday >= dailyLimit) {
+    const usedToday = await countTasksProcessingStartedToday(uid);
+    const quotaMessage =
+      plan === "pro"
+        ? "今日处理次数已达会员版当日上限。内测期间如需更多额度，请联系管理员开通。"
+        : "今日免费处理次数已用完。内测期间如需更多额度，请联系管理员开通。";
+    return res.status(403).json({
+      message: quotaMessage,
+      code: "DAILY_QUOTA_EXCEEDED",
+      quota: {
+        plan,
+        used: usedToday,
+        limit: dailyLimit,
+      },
+    });
+  }
+
   await pool.execute(
-    `UPDATE tasks SET status = 'processing', error_message = NULL WHERE id = :tid`,
+    `UPDATE tasks SET status = 'processing', error_message = NULL,
+       processing_started_at = COALESCE(processing_started_at, NOW())
+     WHERE id = :tid`,
     { tid: taskId }
   );
 

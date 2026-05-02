@@ -77,6 +77,7 @@ export type TaskProcessRow = RowDataPacket & {
   id: number;
   audio_title: string;
   status: string;
+  processing_started_at: Date | null;
 };
 
 export type TaskFileStoredRow = RowDataPacket & {

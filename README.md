@@ -74,10 +74,12 @@ npm run dev
 | GET | `/api/v1/tasks` | 任务列表 |
 | GET | `/api/v1/tasks/:id` | 任务详情 + 文件列表 |
 | POST | `/api/v1/tasks/:id/upload` | `multipart/form-data`，字段名 `files`，多文件 mp3 |
-| POST | `/api/v1/tasks/:id/process` | 洗牌、ffmpeg 拼接、写 xlsx |
+| POST | `/api/v1/tasks/:id/process` | 洗牌、ffmpeg 拼接、写 xlsx（内测：校验每日处理额度） |
 | GET | `/api/v1/tasks/:id/download/mp3` | 下载成品音频 |
 | GET | `/api/v1/tasks/:id/download/xlsx` | 下载顺序表 |
 | GET | `/api/v1/billing/summary` | 会员与支付占位列表 |
+| GET | `/api/v1/billing/overview` | 会员中心展示（含 `quota` 今日处理额度） |
+| POST | `/api/v1/feedback` | 站内反馈，body: `type`, `content`, `contact?` |
 | PATCH | `/api/v1/users/me` | body: `displayName` |
 
 上传文件保存在 `server/data/temp/<taskId>/`，输出在 `server/data/output/<taskId>/`（可通过 `STORAGE_ROOT` 配置）。
@@ -94,6 +96,15 @@ npm run dev
 2. **环境变量**  
    - `server/.env`：`JWT_SECRET`、`DB_*`、`STORAGE_ROOT`、`FFMPEG_PATH=/usr/bin/ffmpeg`  
    - 前端生产环境：`NEXT_PUBLIC_API_URL` 设为对外域名（与浏览器访问同源时可填 `https://你的域名`，由 Nginx 将 `/api` 转发到本机 4000）。
+
+2b. **数据库增量（内测额度与反馈）**  
+   若库已存在、未执行过内测脚本，在服务器上执行：
+
+   ```bash
+   mysql -u root -p peakmix < sql/feedback.sql
+   ```
+
+   （库名若不是 `peakmix`，请编辑 `sql/feedback.sql` 首行 `USE` 或改为在宝塔 SQL 窗口中分段执行。）
 
 3. **Nginx**  
    参考 `deploy/nginx-peakmix.example.conf`：`location /api/` → API；`/` → Next。
@@ -116,8 +127,9 @@ npm run dev
 - `tasks` — 音频任务  
 - `task_files` — 任务上传文件与随机后顺序  
 - `payments` — 支付流水（预留）
+- `feedbacks` — 站内反馈（内测）
 
-详见 `sql/schema.sql`。
+详见 `sql/schema.sql`。已有环境请执行 `sql/feedback.sql` 中的增量语句（`processing_started_at` 字段与 `feedbacks` 表）。
 
 ## 许可与说明
 
