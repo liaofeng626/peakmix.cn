@@ -10,6 +10,7 @@ const links = [
   { href: "/dashboard/tasks", label: "任务列表" },
   { href: "/dashboard/billing", label: "会员中心" },
   { href: "/dashboard/feedback", label: "反馈问题" },
+  { href: "/dashboard/feedbacks", label: "内测反馈" },
   { href: "/dashboard/settings", label: "账号设置" },
 ];
 

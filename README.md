@@ -80,6 +80,7 @@ npm run dev
 | GET | `/api/v1/billing/summary` | 会员与支付占位列表 |
 | GET | `/api/v1/billing/overview` | 会员中心展示（含 `quota` 今日处理额度） |
 | POST | `/api/v1/feedback` | 站内反馈，body: `type`, `content`, `contact?` |
+| GET | `/api/v1/feedback` | 最近 100 条反馈列表（仅配置的管理员邮箱） |
 | PATCH | `/api/v1/users/me` | body: `displayName` |
 
 上传文件保存在 `server/data/temp/<taskId>/`，输出在 `server/data/output/<taskId>/`（可通过 `STORAGE_ROOT` 配置）。

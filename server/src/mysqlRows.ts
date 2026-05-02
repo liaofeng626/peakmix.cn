@@ -47,6 +47,19 @@ export type PaymentRow = RowDataPacket & {
   created_at: Date;
 };
 
+/** 管理员反馈列表 JOIN users */
+export type FeedbackAdminListRow = RowDataPacket & {
+  id: number;
+  user_id: number;
+  email: string;
+  type: string;
+  content: string;
+  contact: string | null;
+  created_at: Date;
+};
+
+export type UserEmailOnlyRow = RowDataPacket & { email: string };
+
 export type TaskListRow = RowDataPacket & {
   id: number;
   audio_title: string;
