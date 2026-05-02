@@ -48,6 +48,29 @@ export default function NewTaskPage() {
       </div>
 
       <InlineNotice tone="info">
+        <div className="space-y-1.5">
+          <p className="font-medium text-sky-950">{"\u4e0a\u4f20\u4e0e\u5904\u7406\u63d0\u793a"}</p>
+          <ul className="list-disc space-y-1 pl-4 text-xs leading-relaxed text-sky-900/85">
+            <li>
+              {
+                "\u5185\u6d4b\u9636\u6bb5\u5efa\u8bae\u9996\u6b21\u4e0a\u4f20 3\uff5e10 \u9996 MP3 \u6d4b\u8bd5\u6d41\u7a0b\u3002"
+              }
+            </li>
+            <li>
+              {
+                "\u6587\u4ef6\u8d8a\u591a\u3001\u8d8a\u5927\uff0c\u4e0a\u4f20\u4e0e\u5904\u7406\u65f6\u95f4\u8d8a\u957f\u3002"
+              }
+            </li>
+            <li>
+              {
+                "\u5355\u4efb\u52a1\u6700\u591a 50 \u4e2a\u6587\u4ef6\uff0c\u5355\u6587\u4ef6\u6700\u5927 80MB\u3002"
+              }
+            </li>
+          </ul>
+        </div>
+      </InlineNotice>
+
+      <InlineNotice tone="info">
         <div className="space-y-1">
           <p className="font-medium">{"\u5408\u89c4\u8fb9\u754c"}</p>
           <p className="text-sm text-sky-900/80">

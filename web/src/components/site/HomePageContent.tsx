@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 /**
- * 首页：面向公开内测的产品说明与入口
+ * 首页主体内容（由 app/page.tsx 套上 MarketingChrome，与 /features 等营销页风格一致）
  */
-export default function HomePage() {
+export function HomePageContent() {
   return (
     <div className="bg-white">
       <section className="relative overflow-hidden">
@@ -189,7 +189,7 @@ export default function HomePage() {
               ))}
             </ul>
             <div className="mt-6 rounded-2xl bg-stone-50 p-4 text-xs text-stone-600">
-              当前为公开内测版本：界面与细节会持续打磨，但核心流程已可完整使用。
+              当前为内测版本：界面与细节会持续打磨，但核心流程已可完整使用。
             </div>
           </div>
         </div>

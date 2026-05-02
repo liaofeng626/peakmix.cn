@@ -8,6 +8,7 @@ import { pool } from "../db";
 import { authRequired } from "../middleware/auth";
 import type { AuthedRequest } from "../types";
 import { ensureTaskDirs } from "../utils/paths";
+import { normalizeOriginalFilename } from "../utils/originalFilename";
 import { processTaskFiles } from "../services/taskProcessor";
 import {
   countOtherTasksProcessingStartedToday,
@@ -148,10 +149,11 @@ router.post("/:id/upload", authRequired, (req: AuthedRequest, res, next) => {
   try {
     await conn.beginTransaction();
     for (const f of files) {
+      const originalName = normalizeOriginalFilename(f.originalname);
       await conn.execute(
         `INSERT INTO task_files (task_id, original_filename, sort_order, stored_path)
          VALUES (:tid, :oname, 0, :spath)`,
-        { tid: taskId, oname: f.originalname, spath: f.path }
+        { tid: taskId, oname: originalName, spath: f.path }
       );
     }
     await conn.execute(

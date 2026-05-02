@@ -34,6 +34,7 @@ export default function TaskDetailPage() {
   const [files, setFiles] = useState<FileRow[]>([]);
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [uploadInFlight, setUploadInFlight] = useState(false);
   const [autoRefresh, setAutoRefresh] = useState(true);
 
   const load = useCallback(async () => {
@@ -64,6 +65,7 @@ export default function TaskDetailPage() {
     const list = e.target.files;
     if (!list?.length) return;
     setBusy(true);
+    setUploadInFlight(true);
     setMsg(null);
     try {
       const fd = new FormData();
@@ -82,6 +84,7 @@ export default function TaskDetailPage() {
     } catch {
       setMsg("\u4e0a\u4f20\u51fa\u9519");
     } finally {
+      setUploadInFlight(false);
       setBusy(false);
       e.target.value = "";
     }
@@ -147,9 +150,18 @@ export default function TaskDetailPage() {
     return <p className="text-sm text-red-600">{msg}</p>;
   }
 
-  const canUpload = !(busy || task.status === "processing" || task.status === "done");
+  const canUpload = !(
+    busy ||
+    uploadInFlight ||
+    task.status === "processing" ||
+    task.status === "done"
+  );
   const canProcess =
-    !busy && task.status !== "processing" && task.status !== "done" && files.length > 0;
+    !busy &&
+    !uploadInFlight &&
+    task.status !== "processing" &&
+    task.status !== "done" &&
+    files.length > 0;
   const canDownload = task.status === "done";
 
   return (
@@ -230,7 +242,35 @@ export default function TaskDetailPage() {
               }
             </p>
           </CardHeader>
-          <CardBody>
+          <CardBody className="space-y-4">
+            <InlineNotice tone="info">
+              <ul className="list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-sky-900/85">
+                <li>
+                  {
+                    "\u5185\u6d4b\u9636\u6bb5\u5efa\u8bae\u9996\u6b21\u4e0a\u4f20 3\uff5e10 \u9996 MP3 \u6d4b\u8bd5\u6d41\u7a0b\u3002"
+                  }
+                </li>
+                <li>
+                  {
+                    "\u6587\u4ef6\u8d8a\u591a\u3001\u8d8a\u5927\uff0c\u4e0a\u4f20\u4e0e\u5904\u7406\u65f6\u95f4\u8d8a\u957f\u3002"
+                  }
+                </li>
+                <li>
+                  {
+                    "\u5f53\u524d\u5355\u4efb\u52a1\u6700\u591a 50 \u4e2a\u6587\u4ef6\uff0c\u5355\u6587\u4ef6\u6700\u5927 80MB\u3002"
+                  }
+                </li>
+              </ul>
+            </InlineNotice>
+            {uploadInFlight && (
+              <InlineNotice tone="warn">
+                <p className="text-sm font-medium text-amber-950/90">
+                  {
+                    "\u6b63\u5728\u4e0a\u4f20\uff0c\u8bf7\u4e0d\u8981\u5173\u95ed\u9875\u9762\u3002\u4e0a\u4f20\u5b8c\u6210\u540e\u518d\u5f00\u59cb\u5904\u7406\u3002"
+                  }
+                </p>
+              </InlineNotice>
+            )}
             <div className="rounded-2xl border border-dashed border-stone-300 bg-stone-50 p-5">
               <p className="text-sm font-medium text-stone-900">
                 {"\u9009\u62e9\u591a\u4e2a .mp3 \u6587\u4ef6"}
@@ -297,6 +337,11 @@ export default function TaskDetailPage() {
                 {"\u4e0b\u8f7d Excel \u987a\u5e8f\u8868"}
               </Button>
             </div>
+            <p className="mt-3 text-xs leading-relaxed text-stone-500">
+              {
+                "\u5904\u7406\u4f1a\u8c03\u7528\u670d\u52a1\u5668 ffmpeg\uff0c\u6587\u4ef6\u8f83\u591a\u65f6\u53ef\u80fd\u9700\u8981\u7b49\u5f85\u3002"
+              }
+            </p>
 
             {task.status === "processing" && (
               <p className="mt-3 text-xs text-stone-500">

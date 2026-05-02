@@ -52,8 +52,8 @@ export function SiteFooter() {
         <div className="mt-10 border-t border-stone-200 pt-6 text-center text-xs text-stone-500">
           <p>© {new Date().getFullYear()} PeakMix. 保留所有权利。</p>
           <p className="mt-2">
-            <span className="mr-4">ICP 备案号：（请在此处填写）</span>
-            <span>公安备案：（请在此处填写）</span>
+            <span className="mr-4">ICP备案号：京ICP备2026005658号-1</span>
+            <span>公安备案：（公安备案后填写）</span>
           </p>
         </div>
       </div>
