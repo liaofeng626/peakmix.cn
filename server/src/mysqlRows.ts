@@ -60,6 +60,26 @@ export type FeedbackAdminListRow = RowDataPacket & {
 
 export type UserEmailOnlyRow = RowDataPacket & { email: string };
 
+/** 管理员看板 COUNT(*) */
+export type AdminCountRow = RowDataPacket & { cnt: number };
+
+export type AdminRecentUserRow = RowDataPacket & {
+  id: number;
+  email: string;
+  display_name: string | null;
+  created_at: Date;
+};
+
+export type AdminRecentTaskRow = RowDataPacket & {
+  id: number;
+  user_id: number;
+  email: string;
+  audio_title: string;
+  status: string;
+  processing_started_at: Date | null;
+  created_at: Date;
+};
+
 export type TaskListRow = RowDataPacket & {
   id: number;
   audio_title: string;
